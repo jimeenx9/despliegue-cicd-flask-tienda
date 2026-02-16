@@ -25,9 +25,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run tests
+        working-directory: .
         run: |
-          export PYTHONPATH=$PYTHONPATH:$(pwd)
-          python -m unittest discover tests
+          echo "PWD=$(pwd)"
+          python -c "import sys; print(sys.path)"
+          PYTHONPATH=$(pwd) python -m unittest discover -s tests -t .
 
   build-and-push:
     needs: test
