@@ -1,8 +1,8 @@
 # Este archivo convierte la aplicación académica en una app ejecutable por CI/CD
 
-from aplicacion.app import app
-from aplicacion.models import db
-from aplicacion.models import Categoria, Articulo, Usuario
+from src.aplicacion.app import app
+from src.aplicacion.models import db
+from src.aplicacion.models import Categoria, Articulo, Usuario
 
 # ===== AUTO-INICIALIZACIÓN =====
 with app.app_context():
