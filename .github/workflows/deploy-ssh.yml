@@ -1,0 +1,29 @@
+name: Deploy to EC2 via SSH
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Connect and deploy
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          echo "Connected to server"
+
+          # parar contenedor anterior
+          docker stop flask-tienda || true
+          docker rm flask-tienda || true
+
+          # descargar nueva imagen
+          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/ci-cd-python:latest
+
+          # arrancar contenedor nuevo
+          docker run -d -p 80:8000 --name flask-tienda ${{ secrets.DOCKER_HUB_USERNAME }}/ci-cd-python:latest

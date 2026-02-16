@@ -2,3 +2,6 @@ venv
 __pycache__
 notas.txtnotas.txt
 tienda/
+# SSH
+github-actions-key
+github-actions-key.pub

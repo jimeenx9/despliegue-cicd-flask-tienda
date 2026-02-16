@@ -1,19 +1,19 @@
 FROM python:3.13-slim
 
-# Evita problemas de logs en contenedores
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Instalar dependencias primero (cache docker)
+# instalar dependencias
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiar código
-COPY src/ .
+# copiar TODO el proyecto
+COPY . .
 
-# Puerto de la app
+# python debe ver el proyecto
+ENV PYTHONPATH=/app
+
 EXPOSE 8000
 
-# Comando de arranque
-CMD ["python", "app.py"]
+CMD ["python", "src/app.py"]
