@@ -23,7 +23,7 @@ jobs:
           docker rm flask-tienda || true
 
           # descargar nueva imagen
-          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/ci-cd-python:latest
+          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/ci-cd-python:${{ github.sha }}
 
           # arrancar contenedor nuevo
-          docker run -d -p 80:8000 --name flask-tienda ${{ secrets.DOCKER_HUB_USERNAME }}/ci-cd-python:latest
+          docker run -d -p 80:8000 --name flask-tienda ${{ secrets.DOCKER_HUB_USERNAME }}/ci-cd-python:${{ github.sha }}
